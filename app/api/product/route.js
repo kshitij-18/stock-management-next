@@ -8,7 +8,10 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+    console.log('HEREEEE');
     const db = client.db('stock-management');
-    const body = request.body;
-    
+    const body = await request.json(request.body);
+    console.log('BODY', body);
+    await db.collection('stocks').insertOne(body);
+    return NextResponse.json({ ...body, ok: true });
 }

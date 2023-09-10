@@ -1,16 +1,31 @@
 'use client'
 import React, { useState } from 'react';
 
-const StockForm = ({ onAddStock }) => {
+const StockForm = () => {
   const [stockName, setStockName] = useState('');
   const [stockPrice, setStockPrice] = useState('');
   const [stockQuantity, setStockQuantity] = useState('');
 
+  const addStock = async (body) => {
+    const data = JSON.stringify(body);
+    console.log('DATA>>>', data);
+    try {
+      await fetch('/api/product', {
+        method: 'POST',
+        body: data,
+      });
+      console.log('Data saved successfully');
+    } catch (error) {
+      console.error('Data could not be saved', error.response.message);
+    }
+  }
+
   const handleAddStock = () => {
     if (stockName && stockPrice && stockQuantity) {
-      onAddStock({ name: stockName, price: parseFloat(stockPrice), quantity: stockQuantity });
+      addStock({ name: stockName, price: parseFloat(stockPrice), quantity: stockQuantity });
       setStockName('');
       setStockPrice('');
+      setStockQuantity('');
     }
   };
 

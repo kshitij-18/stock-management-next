@@ -1,6 +1,7 @@
 import React from 'react';
 
-const StockTable = ({ stocks }) => {
+const StockTable = ({ stocks = [] }) => {
+  console.log('STOCKS', stocks);
   return (
     <div className="mt-6">
       <h2 className="text-xl font-semibold mb-2">Stock Table</h2>
@@ -12,7 +13,7 @@ const StockTable = ({ stocks }) => {
           </tr>
         </thead>
         <tbody>
-          {stocks.map((stock, index) => (
+          {stocks?.map((stock, index) => (
             <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
               <td className="p-2">{stock.name}</td>
               <td className="p-2">{stock.price}</td>
